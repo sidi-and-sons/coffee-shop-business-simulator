@@ -2,7 +2,7 @@
 A coffee shop simulator for business students. Can you keep the coffee shop open for 12 months?
 
 ## Live Website
-Visit the live Hello World website at: https://sidi-and-sons.github.io/coffee-shop-business-simulator/
+Try your hand at running a Coffee Shop at https://sidi-and-sons.github.io/coffee-shop-business-simulator/
 
 ## Development
 

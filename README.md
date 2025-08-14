@@ -9,7 +9,7 @@ Visit the live Hello World website at: https://sidi-and-sons.github.io/coffee-sh
 This project uses React with TypeScript and TailwindCSS for a modern, responsive web interface.
 
 ### Prerequisites
-- Node.js 18 or higher
+- Node.js 20.19.0 or higher
 - npm
 
 ### Getting Started

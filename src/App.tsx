@@ -27,7 +27,7 @@ const CoffeeShopSimulation = () => {
 
   const playSound = (soundFile) => {
     try {
-      const audio = new Audio(`/sounds/${soundFile}`);
+      const audio = new Audio(`sounds/${soundFile}`);
       audio.volume = 0.5;
       audio.play().catch(e => console.log('Audio play failed:', e));
     } catch (e) {
@@ -268,17 +268,17 @@ const CoffeeShopSimulation = () => {
           `Month ${prev.month}: ${event.text}`,
         ]);
         setCurrentEvent({ text: event.text, month: prev.month });
-        
+
         // Play sounds based on event type
-        const isPositiveEvent = event.effect.dailyCustomers > 0 || 
-                               event.effect.reputation > 0 || 
+        const isPositiveEvent = event.effect.dailyCustomers > 0 ||
+                               event.effect.reputation > 0 ||
                                event.effect.customerSatisfaction > 0;
-        const isNegativeEvent = event.effect.dailyCustomers < 0 || 
-                               event.effect.reputation < 0 || 
+        const isNegativeEvent = event.effect.dailyCustomers < 0 ||
+                               event.effect.reputation < 0 ||
                                event.effect.customerSatisfaction < 0 ||
                                event.effect.equipmentCondition < 0 ||
                                event.effect.coffeeBeans < 0;
-        
+
         if (isPositiveEvent) {
           playSound('victory.mp3');
         } else if (isNegativeEvent) {

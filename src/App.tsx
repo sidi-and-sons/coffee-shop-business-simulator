@@ -13,8 +13,8 @@ const CoffeeShopSimulation = () => {
   const [gameState, setGameState] = useState({
     cash: 15000,
     staff: 3,
-    coffeeBeans: 100,
-    pastries: 50,
+    coffeeBeans: 800,
+    pastries: 3000,
     customerSatisfaction: 75,
     dailyCustomers: 120,
     reputation: 70,

@@ -13,8 +13,8 @@ const CoffeeShopSimulation = () => {
   const [gameState, setGameState] = useState({
     cash: 15000,
     staff: 3,
-    coffeeBeans: 800,
-    pastries: 3000,
+    coffeeBeans: 270,
+    pastries: 1200,
     customerSatisfaction: 75,
     dailyCustomers: 120,
     reputation: 70,
@@ -43,7 +43,7 @@ const CoffeeShopSimulation = () => {
     marketingSpend: 0,
     equipmentMaintenance: 0,
     pastryOrders: 0,
-    beanOrders: 50,
+    beanOrders: 0,
   });
 
   const [gameLog, setGameLog] = useState([]);
@@ -88,8 +88,8 @@ const CoffeeShopSimulation = () => {
     setGameState({
       cash: 15000,
       staff: 3,
-      coffeeBeans: 100,
-      pastries: 50,
+      coffeeBeans: 270,
+      pastries: 1200,
       customerSatisfaction: 75,
       dailyCustomers: 120,
       reputation: 70,
@@ -107,7 +107,7 @@ const CoffeeShopSimulation = () => {
       marketingSpend: 0,
       equipmentMaintenance: 0,
       pastryOrders: 0,
-      beanOrders: 50,
+      beanOrders: 0,
     });
     setGameLog([]);
     setCurrentEvent(null);
@@ -269,23 +269,8 @@ const CoffeeShopSimulation = () => {
         ]);
         setCurrentEvent({ text: event.text, month: prev.month });
 
-        // Play sounds based on event type
-        const isPositiveEvent = event.effect.dailyCustomers > 0 ||
-                               event.effect.reputation > 0 ||
-                               event.effect.customerSatisfaction > 0;
-        const isNegativeEvent = event.effect.dailyCustomers < 0 ||
-                               event.effect.reputation < 0 ||
-                               event.effect.customerSatisfaction < 0 ||
-                               event.effect.equipmentCondition < 0 ||
-                               event.effect.coffeeBeans < 0;
-
-        if (isPositiveEvent) {
-          playSound('victory.mp3');
-        } else if (isNegativeEvent) {
-          playSound('sad-sound.mp3');
-        } else {
-          playSound('notification.mp3');
-        }
+        // Play notification sound for all random events
+        playSound('notification.mp3');
 
         // Apply event effects
         if (event.effect.dailyCustomers) {
@@ -383,7 +368,7 @@ const CoffeeShopSimulation = () => {
       marketingSpend: 0,
       equipmentMaintenance: 0,
       pastryOrders: 0,
-      beanOrders: 50,
+      beanOrders: 0,
     });
   };
 

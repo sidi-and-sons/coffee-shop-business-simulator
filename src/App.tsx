@@ -25,6 +25,16 @@ const CoffeeShopSimulation = () => {
     equipmentCondition: 90,
   });
 
+  const playSound = (soundFile) => {
+    try {
+      const audio = new Audio(`/sounds/${soundFile}`);
+      audio.volume = 0.5;
+      audio.play().catch(e => console.log('Audio play failed:', e));
+    } catch (e) {
+      console.log('Audio creation failed:', e);
+    }
+  };
+
   const [decisions, setDecisions] = useState({
     staffChanges: 0,
     coffeePrice: 4.5,
@@ -258,6 +268,24 @@ const CoffeeShopSimulation = () => {
           `Month ${prev.month}: ${event.text}`,
         ]);
         setCurrentEvent({ text: event.text, month: prev.month });
+        
+        // Play sounds based on event type
+        const isPositiveEvent = event.effect.dailyCustomers > 0 || 
+                               event.effect.reputation > 0 || 
+                               event.effect.customerSatisfaction > 0;
+        const isNegativeEvent = event.effect.dailyCustomers < 0 || 
+                               event.effect.reputation < 0 || 
+                               event.effect.customerSatisfaction < 0 ||
+                               event.effect.equipmentCondition < 0 ||
+                               event.effect.coffeeBeans < 0;
+        
+        if (isPositiveEvent) {
+          playSound('victory.mp3');
+        } else if (isNegativeEvent) {
+          playSound('sad-sound.mp3');
+        } else {
+          playSound('notification.mp3');
+        }
 
         // Apply event effects
         if (event.effect.dailyCustomers) {
@@ -327,8 +355,20 @@ const CoffeeShopSimulation = () => {
         equipmentCondition: newEquipmentCondition,
       };
 
+      // Play sounds based on game outcomes
+      if (netProfit > 0) {
+        playSound('cash-register.mp3');
+      } else if (netProfit < 0) {
+        playSound('coins.mp3');
+      }
+
       if (newState.cash <= 0 || newState.month > 12) {
         setShowResults(true);
+        if (newState.cash > 0) {
+          playSound('victory.mp3');
+        } else {
+          playSound('sad-sound.mp3');
+        }
       }
 
       return newState;

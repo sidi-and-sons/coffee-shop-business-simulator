@@ -748,7 +748,7 @@ const CoffeeShopSimulation = () => {
               <input
                 type="range"
                 min="0"
-                max="100"
+                max="5000"
                 value={decisions.pastryOrders}
                 onChange={(e) =>
                   setDecisions((prev) => ({
@@ -770,7 +770,7 @@ const CoffeeShopSimulation = () => {
               <input
                 type="range"
                 min="0"
-                max="100"
+                max="1000"
                 value={decisions.beanOrders}
                 onChange={(e) =>
                   setDecisions((prev) => ({

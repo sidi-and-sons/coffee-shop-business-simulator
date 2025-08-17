@@ -323,6 +323,24 @@ const CoffeeShopSimulation = () => {
       console.log(`  Coffees sold: ${coffeesSold.toFixed(0)}`);
       console.log(`  Beans used: ${beansUsed.toFixed(1)}kg`);
       console.log(`  Beans remaining: ${remainingBeans.toFixed(1)}kg`);
+      
+      // Cash Flow Analysis
+      console.log(`CASH FLOW ANALYSIS:`);
+      console.log(`  REVENUE:`);
+      console.log(`    Coffee sales: $${coffeeRevenue.toFixed(2)} (${coffeesSold.toFixed(0)} × $${decisions.coffeePrice})`);
+      console.log(`    Pastry sales: $${pastryRevenue.toFixed(2)} (${pastriesSold.toFixed(0)} × $${decisions.pastryPrice})`);
+      console.log(`    Total revenue: $${totalRevenue.toFixed(2)}`);
+      console.log(`  EXPENSES:`);
+      console.log(`    Bean costs: $${beanCosts.toFixed(2)} (${decisions.beanOrders}kg × $${beanCostPerKg})`);
+      console.log(`    Staff costs: $${staffCosts.toFixed(2)} (${newStaff} × $2,800)`);
+      console.log(`    Pastry costs: $${pastryCosts.toFixed(2)} (${decisions.pastryOrders} × $1.50)`);
+      console.log(`    Rent: $${rent.toFixed(2)}`);
+      console.log(`    Utilities: $${utilities.toFixed(2)}`);
+      console.log(`    Maintenance: $${maintenanceCosts.toFixed(2)}`);
+      console.log(`    Marketing: $${marketingCosts.toFixed(2)}`);
+      console.log(`    Total expenses: $${totalExpenses.toFixed(2)}`);
+      console.log(`  NET PROFIT: $${netProfit.toFixed(2)}`);
+      console.log(`  CASH FLOW: $${prev.cash.toFixed(2)} → $${newCash.toFixed(2)} (${netProfit >= 0 ? '+' : ''}$${netProfit.toFixed(2)})`);
 
       const newState = {
         ...prev,

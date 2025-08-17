@@ -359,17 +359,17 @@ const CoffeeShopSimulation = () => {
       return newState;
     });
 
-    // Reset decisions for next month
-    setDecisions({
+    // Reset decisions for next month (preserve pricing)
+    setDecisions((prev) => ({
       staffChanges: 0,
-      coffeePrice: 4.5,
-      pastryPrice: 3.0,
+      coffeePrice: prev.coffeePrice, // Maintain current coffee price
+      pastryPrice: prev.pastryPrice, // Maintain current pastry price
       beanQuality: 2,
       marketingSpend: 0,
       equipmentMaintenance: 0,
       pastryOrders: 0,
       beanOrders: 0,
-    });
+    }));
   };
 
   const nextMonth = () => {

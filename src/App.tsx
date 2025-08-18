@@ -150,8 +150,36 @@ const CoffeeShopSimulation = () => {
       // === STAFF AND CUSTOMER CALCULATIONS ===
       const newStaff = Math.max(1, prev.staff + decisions.staffChanges);
 
-      // Monthly customers (simplified)
-      const monthlyCustomers = prev.dailyCustomers * 30;
+      // === UPDATE BUSINESS METRICS FIRST ===
+      let newSatisfaction = prev.customerSatisfaction;
+
+      // Bean quality affects satisfaction
+      if (decisions.beanQuality === 1) newSatisfaction -= 2;
+      if (decisions.beanQuality === 3) newSatisfaction += 3;
+
+      // Adequate staffing affects satisfaction
+      const preliminaryCustomersPerStaff = (prev.dailyCustomers * 30) / newStaff;
+      if (preliminaryCustomersPerStaff > 1500) newSatisfaction -= 5; // Understaffed
+      if (preliminaryCustomersPerStaff < 800) newSatisfaction += 2; // Well-staffed
+
+      // Equipment condition affects satisfaction
+      if (prev.equipmentCondition < 50) newSatisfaction -= 8;
+      else if (prev.equipmentCondition > 80) newSatisfaction += 2;
+
+      // Price affects satisfaction
+      if (decisions.coffeePrice > 5.5) newSatisfaction -= 3;
+      if (decisions.coffeePrice < 3.5) newSatisfaction += 2;
+
+      newSatisfaction = Math.max(20, Math.min(100, newSatisfaction));
+
+      // Daily customers influenced by satisfaction and marketing
+      let currentDailyCustomers = prev.dailyCustomers;
+      currentDailyCustomers += (newSatisfaction - 75) * 0.2;
+      currentDailyCustomers += decisions.marketingSpend * 0.8;
+      currentDailyCustomers = Math.max(50, Math.min(250, currentDailyCustomers));
+
+      // Monthly customers (using updated daily customer count)
+      const monthlyCustomers = currentDailyCustomers * 30;
 
       // Price affects customer count
       const priceImpact =
@@ -224,33 +252,15 @@ const CoffeeShopSimulation = () => {
       const netProfit = totalRevenue - totalExpenses;
       const newCash = prev.cash + netProfit;
 
-      // === UPDATE BUSINESS METRICS ===
-      let newSatisfaction = prev.customerSatisfaction;
-
-      // Bean quality affects satisfaction
-      if (decisions.beanQuality === 1) newSatisfaction -= 2;
-      if (decisions.beanQuality === 3) newSatisfaction += 3;
-
-      // Adequate staffing affects satisfaction
+      // Update staffing satisfaction check using actual customers served
       const customersPerStaff = actualCustomers / newStaff;
-      if (customersPerStaff > 1500) newSatisfaction -= 5; // Understaffed
-      if (customersPerStaff < 800) newSatisfaction += 2; // Well-staffed
-
-      // Equipment condition affects satisfaction
-      if (prev.equipmentCondition < 50) newSatisfaction -= 8;
-      else if (prev.equipmentCondition > 80) newSatisfaction += 2;
-
-      // Price affects satisfaction
-      if (decisions.coffeePrice > 5.5) newSatisfaction -= 3;
-      if (decisions.coffeePrice < 3.5) newSatisfaction += 2;
+      if (customersPerStaff > 1500) newSatisfaction -= 5; // Understaffed (additional penalty)
+      if (customersPerStaff < 800) newSatisfaction += 2; // Well-staffed (additional bonus)
 
       newSatisfaction = Math.max(20, Math.min(100, newSatisfaction));
-
-      // Daily customers influenced by satisfaction and marketing
-      let newDailyCustomers = prev.dailyCustomers;
-      newDailyCustomers += (newSatisfaction - 75) * 0.2;
-      newDailyCustomers += decisions.marketingSpend * 0.8;
-      newDailyCustomers = Math.max(50, Math.min(250, newDailyCustomers));
+      
+      // Final daily customers for next month's baseline
+      let newDailyCustomers = currentDailyCustomers;
 
       // Reputation
       let newReputation = prev.reputation;

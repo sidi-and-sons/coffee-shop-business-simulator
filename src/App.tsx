@@ -204,7 +204,7 @@ const CoffeeShopSimulation = () => {
           ? 18
           : 28;
       const beanCosts = decisions.beanOrders * beanCostPerKg;
-      const staffCosts = newStaff * 2800;
+      const staffCosts = newStaff * 700;
       const pastryCosts = decisions.pastryOrders * 1.5;
       const rent = 2000;
       const utilities = 450;
@@ -641,7 +641,7 @@ const CoffeeShopSimulation = () => {
                     <span className="font-bold text-red-700">${cashFlowData.expenses.beanCosts.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Staff ({cashFlowData.expenses.staff} × $2,800):</span>
+                    <span>Staff ({cashFlowData.expenses.staff} × $700):</span>
                     <span className="font-bold text-red-700">${cashFlowData.expenses.staffCosts.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
@@ -766,7 +766,7 @@ const CoffeeShopSimulation = () => {
                 className="w-full"
               />
               <div className="text-xs text-gray-600 mt-1">
-                Salary: $2,800/month per person
+                Salary: $700/month per person
               </div>
             </div>
 

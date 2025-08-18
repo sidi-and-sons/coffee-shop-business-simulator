@@ -49,6 +49,8 @@ const CoffeeShopSimulation = () => {
   const [gameLog, setGameLog] = useState([]);
   const [currentEvent, setCurrentEvent] = useState(null);
   const [showResults, setShowResults] = useState(false);
+  const [showCashFlow, setShowCashFlow] = useState(false);
+  const [cashFlowData, setCashFlowData] = useState(null);
 
   const randomEvents = [
     {
@@ -112,6 +114,8 @@ const CoffeeShopSimulation = () => {
     setGameLog([]);
     setCurrentEvent(null);
     setShowResults(false);
+    setShowCashFlow(false);
+    setCashFlowData(null);
   };
 
   const getBeanQualityName = (level) => {
@@ -325,6 +329,38 @@ const CoffeeShopSimulation = () => {
       console.log(`  Beans remaining: ${remainingBeans.toFixed(1)}kg`);
       
       // Cash Flow Analysis
+      const currentCashFlow = {
+        month: prev.month,
+        revenue: {
+          coffeeRevenue: coffeeRevenue,
+          coffeeSold: coffeesSold,
+          coffeePrice: decisions.coffeePrice,
+          pastryRevenue: pastryRevenue,
+          pastrySold: pastriesSold,
+          pastryPrice: decisions.pastryPrice,
+          totalRevenue: totalRevenue
+        },
+        expenses: {
+          beanCosts: beanCosts,
+          beanOrders: decisions.beanOrders,
+          beanCostPerKg: beanCostPerKg,
+          staffCosts: staffCosts,
+          staff: newStaff,
+          pastryCosts: pastryCosts,
+          pastryOrders: decisions.pastryOrders,
+          rent: rent,
+          utilities: utilities,
+          maintenanceCosts: maintenanceCosts,
+          marketingCosts: marketingCosts,
+          totalExpenses: totalExpenses
+        },
+        netProfit: netProfit,
+        cashBefore: prev.cash,
+        cashAfter: newCash
+      };
+      
+      setCashFlowData(currentCashFlow);
+      
       console.log(`CASH FLOW ANALYSIS:`);
       console.log(`  REVENUE:`);
       console.log(`    Coffee sales: $${coffeeRevenue.toFixed(2)} (${coffeesSold.toFixed(0)} × $${decisions.coffeePrice})`);
@@ -432,6 +468,17 @@ const CoffeeShopSimulation = () => {
             </p>
           </div>
           <div className="flex gap-2">
+            <button
+              onClick={() => setShowCashFlow(!showCashFlow)}
+              className={`px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transition-colors ${
+                showCashFlow
+                  ? "bg-green-500 hover:bg-green-600 text-white"
+                  : "bg-gray-300 hover:bg-gray-400 text-gray-700"
+              }`}
+            >
+              <DollarSign size={20} />
+              Cash Flow
+            </button>
             <button
               onClick={nextMonth}
               disabled={
@@ -555,6 +602,97 @@ const CoffeeShopSimulation = () => {
             </div>
           </div>
         </div>
+
+        {showCashFlow && cashFlowData && (
+          <div className="bg-blue-50 border-2 border-blue-200 p-6 rounded-lg mb-6">
+            <h3 className="text-xl font-bold text-blue-800 mb-4 flex items-center gap-2">
+              <DollarSign className="text-blue-600" size={24} />
+              Cash Flow Analysis - Month {cashFlowData.month}
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Revenue Section */}
+              <div className="bg-green-50 p-4 rounded-lg">
+                <h4 className="text-lg font-semibold text-green-800 mb-3">Revenue</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>Coffee Sales ({cashFlowData.revenue.coffeeSold.toFixed(0)} × ${cashFlowData.revenue.coffeePrice.toFixed(2)}):</span>
+                    <span className="font-bold text-green-700">${cashFlowData.revenue.coffeeRevenue.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Pastry Sales ({cashFlowData.revenue.pastrySold.toFixed(0)} × ${cashFlowData.revenue.pastryPrice.toFixed(2)}):</span>
+                    <span className="font-bold text-green-700">${cashFlowData.revenue.pastryRevenue.toLocaleString()}</span>
+                  </div>
+                  <div className="border-t border-green-200 pt-2 mt-2">
+                    <div className="flex justify-between font-bold text-green-800">
+                      <span>Total Revenue:</span>
+                      <span>${cashFlowData.revenue.totalRevenue.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Expenses Section */}
+              <div className="bg-red-50 p-4 rounded-lg">
+                <h4 className="text-lg font-semibold text-red-800 mb-3">Expenses</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>Beans ({cashFlowData.expenses.beanOrders}kg × ${cashFlowData.expenses.beanCostPerKg}):</span>
+                    <span className="font-bold text-red-700">${cashFlowData.expenses.beanCosts.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Staff ({cashFlowData.expenses.staff} × $2,800):</span>
+                    <span className="font-bold text-red-700">${cashFlowData.expenses.staffCosts.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Pastries ({cashFlowData.expenses.pastryOrders} × $1.50):</span>
+                    <span className="font-bold text-red-700">${cashFlowData.expenses.pastryCosts.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Rent:</span>
+                    <span className="font-bold text-red-700">${cashFlowData.expenses.rent.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Utilities:</span>
+                    <span className="font-bold text-red-700">${cashFlowData.expenses.utilities.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Maintenance:</span>
+                    <span className="font-bold text-red-700">${cashFlowData.expenses.maintenanceCosts.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Marketing:</span>
+                    <span className="font-bold text-red-700">${cashFlowData.expenses.marketingCosts.toLocaleString()}</span>
+                  </div>
+                  <div className="border-t border-red-200 pt-2 mt-2">
+                    <div className="flex justify-between font-bold text-red-800">
+                      <span>Total Expenses:</span>
+                      <span>${cashFlowData.expenses.totalExpenses.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Net Profit and Cash Flow Summary */}
+            <div className="mt-4 p-4 bg-white rounded-lg border-2 border-gray-200">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="text-center">
+                  <div className="text-sm text-gray-600 mb-1">Net Profit</div>
+                  <div className={`text-2xl font-bold ${cashFlowData.netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    {cashFlowData.netProfit >= 0 ? '+' : ''}${cashFlowData.netProfit.toLocaleString()}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-gray-600 mb-1">Cash Flow</div>
+                  <div className="text-lg font-semibold text-gray-800">
+                    ${cashFlowData.cashBefore.toLocaleString()} → ${cashFlowData.cashAfter.toLocaleString()}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {currentEvent && (
           <div className="bg-red-50 border-2 border-red-200 p-4 rounded-lg mb-6">

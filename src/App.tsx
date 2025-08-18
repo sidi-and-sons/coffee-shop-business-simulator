@@ -206,7 +206,7 @@ const CoffeeShopSimulation = () => {
       const beanCosts = decisions.beanOrders * beanCostPerKg;
       const staffCosts = newStaff * 2800;
       const pastryCosts = decisions.pastryOrders * 1.5;
-      const rent = 3500;
+      const rent = 2000;
       const utilities = 450;
       const maintenanceCosts = decisions.equipmentMaintenance * 50;
       const marketingCosts = decisions.marketingSpend * 100;
@@ -1015,7 +1015,7 @@ const CoffeeShopSimulation = () => {
               marketing, and maintenance
             </p>
             <p>
-              • <strong>Fixed costs:</strong> Rent ($3,500), utilities ($450),
+              • <strong>Fixed costs:</strong> Rent ($2,000), utilities ($450),
               staff salaries
             </p>
             <p>

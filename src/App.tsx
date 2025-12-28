@@ -7,6 +7,7 @@ import {
   DollarSign,
   Package,
   ThermometerSun,
+  HelpCircle,
 } from "lucide-react";
 
 const CoffeeShopSimulation = () => {
@@ -51,6 +52,7 @@ const CoffeeShopSimulation = () => {
   const [showResults, setShowResults] = useState(false);
   const [showCashFlow, setShowCashFlow] = useState(false);
   const [cashFlowData, setCashFlowData] = useState(null);
+  const [showHint, setShowHint] = useState(false);
 
   const randomEvents = [
     {
@@ -116,6 +118,7 @@ const CoffeeShopSimulation = () => {
     setShowResults(false);
     setShowCashFlow(false);
     setCashFlowData(null);
+    setShowHint(false);
   };
 
   const getBeanQualityName = (level) => {
@@ -704,6 +707,64 @@ const CoffeeShopSimulation = () => {
           </div>
         )}
 
+        {showHint && showResults && gameState.cash <= 0 && (
+          <div className="bg-yellow-50 border-2 border-yellow-200 p-6 rounded-lg mb-6">
+            <h3 className="text-xl font-bold text-yellow-800 mb-4 flex items-center gap-2">
+              <HelpCircle className="text-yellow-600" size={24} />
+              💡 Business Strategy Hints
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-yellow-100 p-4 rounded-lg">
+                <h4 className="text-lg font-semibold text-yellow-800 mb-2">💰 Financial Management</h4>
+                <ul className="text-sm text-yellow-700 space-y-1">
+                  <li>• Keep at least $5,000 cash reserve for unexpected events</li>
+                  <li>• Monitor your monthly profit/loss closely</li>
+                  <li>• Balance staff costs with customer demand</li>
+                  <li>• Don't overspend on marketing early on</li>
+                </ul>
+              </div>
+              
+              <div className="bg-yellow-100 p-4 rounded-lg">
+                <h4 className="text-lg font-semibold text-yellow-800 mb-2">👥 Customer Satisfaction</h4>
+                <ul className="text-sm text-yellow-700 space-y-1">
+                  <li>• Keep equipment condition above 70%</li>
+                  <li>• Premium bean quality improves satisfaction</li>
+                  <li>• Don't price coffee too high (avoid $5.50+)</li>
+                  <li>• Ensure adequate staffing for busy periods</li>
+                </ul>
+              </div>
+              
+              <div className="bg-yellow-100 p-4 rounded-lg">
+                <h4 className="text-lg font-semibold text-yellow-800 mb-2">📦 Inventory Planning</h4>
+                <ul className="text-sm text-yellow-700 space-y-1">
+                  <li>• Order beans based on expected customers</li>
+                  <li>• Each kg of beans makes 10 cups of coffee</li>
+                  <li>• ~70% of customers buy coffee, ~30% buy pastries</li>
+                  <li>• Don't overstock - inventory costs money</li>
+                </ul>
+              </div>
+              
+              <div className="bg-yellow-100 p-4 rounded-lg">
+                <h4 className="text-lg font-semibold text-yellow-800 mb-2">📈 Growth Strategy</h4>
+                <ul className="text-sm text-yellow-700 space-y-1">
+                  <li>• Build reputation gradually for long-term success</li>
+                  <li>• Use marketing to attract new customers</li>
+                  <li>• Invest in maintenance to keep equipment running</li>
+                  <li>• Monitor daily customer trends and adapt</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="mt-4 p-3 bg-white rounded-lg border border-yellow-300">
+              <p className="text-sm text-yellow-800 font-medium">
+                💡 <strong>Pro Tip:</strong> Success comes from balancing profitability with customer satisfaction. 
+                Focus on consistent quality and smart financial management rather than rapid expansion.
+              </p>
+            </div>
+          </div>
+        )}
+
         {currentEvent && (
           <div className="bg-red-50 border-2 border-red-200 p-4 rounded-lg mb-6">
             <div className="flex items-center gap-2 mb-2">
@@ -752,7 +813,7 @@ const CoffeeShopSimulation = () => {
           </div>
         </div>
 
-        <div className="bg-orange-50 p-6 rounded-lg mb-6">
+        <div className="relative bg-orange-50 p-6 rounded-lg mb-6">
           <h3 className="text-xl font-bold mb-4 text-gray-800">
             Monthly Business Decisions
           </h3>
@@ -942,6 +1003,73 @@ const CoffeeShopSimulation = () => {
               </div>
             </div>
           </div>
+          
+          {showResults && (
+            <div className="absolute inset-0 bg-amber-50 border-2 border-amber-200 rounded-lg p-6 flex flex-col justify-center items-center backdrop-blur-sm bg-opacity-95">
+              <h3 className="text-2xl font-bold text-center mb-4 text-gray-800">
+                {gameState.cash > 0
+                  ? "🎉 Coffee Shop Success!"
+                  : "☕ Shop Closed!"}
+              </h3>
+              <div className="text-center space-y-4">
+                <p className="text-lg">
+                  {gameState.cash > 0
+                    ? `Great job! Your coffee shop finished with $${gameState.cash.toLocaleString()}`
+                    : "Don't give up! Every successful entrepreneur learns from setbacks. You've gained valuable experience that will help you succeed next time!"}
+                </p>
+                
+                {gameState.cash <= 0 && (
+                  <button
+                    onClick={() => setShowHint(!showHint)}
+                    className={`px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors mx-auto ${
+                      showHint
+                        ? "bg-yellow-500 hover:bg-yellow-600 text-white"
+                        : "bg-yellow-300 hover:bg-yellow-400 text-gray-700"
+                    }`}
+                  >
+                    <HelpCircle size={20} />
+                    Hint
+                  </button>
+                )}
+                
+                <div className="grid grid-cols-2 gap-4 mt-4 text-sm">
+                  <div>
+                    Final Cash:{" "}
+                    <span className="font-bold">
+                      ${gameState.cash.toLocaleString()}
+                    </span>
+                  </div>
+                  <div>
+                    Staff: <span className="font-bold">{gameState.staff}</span>
+                  </div>
+                  <div>
+                    Daily Customers:{" "}
+                    <span className="font-bold">
+                      {gameState.dailyCustomers.toFixed(0)}
+                    </span>
+                  </div>
+                  <div>
+                    Customer Satisfaction:{" "}
+                    <span className="font-bold">
+                      {gameState.customerSatisfaction.toFixed(0)}%
+                    </span>
+                  </div>
+                  <div>
+                    Reputation:{" "}
+                    <span className="font-bold">
+                      {gameState.reputation.toFixed(0)}%
+                    </span>
+                  </div>
+                  <div>
+                    Equipment Condition:{" "}
+                    <span className="font-bold">
+                      {gameState.equipmentCondition.toFixed(0)}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {gameLog.length > 0 && (
@@ -959,57 +1087,6 @@ const CoffeeShopSimulation = () => {
           </div>
         )}
 
-        {showResults && (
-          <div className="bg-amber-50 border-2 border-amber-200 p-6 rounded-lg">
-            <h3 className="text-2xl font-bold text-center mb-4 text-gray-800">
-              {gameState.cash > 0
-                ? "🎉 Coffee Shop Success!"
-                : "☕ Shop Closed!"}
-            </h3>
-            <div className="text-center space-y-2">
-              <p className="text-lg">
-                {gameState.cash > 0
-                  ? `Great job! Your coffee shop finished with $${gameState.cash.toLocaleString()}`
-                  : "Your coffee shop ran out of money. Time to learn from this experience!"}
-              </p>
-              <div className="grid grid-cols-2 gap-4 mt-4 text-sm">
-                <div>
-                  Final Cash:{" "}
-                  <span className="font-bold">
-                    ${gameState.cash.toLocaleString()}
-                  </span>
-                </div>
-                <div>
-                  Staff: <span className="font-bold">{gameState.staff}</span>
-                </div>
-                <div>
-                  Daily Customers:{" "}
-                  <span className="font-bold">
-                    {gameState.dailyCustomers.toFixed(0)}
-                  </span>
-                </div>
-                <div>
-                  Customer Satisfaction:{" "}
-                  <span className="font-bold">
-                    {gameState.customerSatisfaction.toFixed(0)}%
-                  </span>
-                </div>
-                <div>
-                  Reputation:{" "}
-                  <span className="font-bold">
-                    {gameState.reputation.toFixed(0)}%
-                  </span>
-                </div>
-                <div>
-                  Equipment Condition:{" "}
-                  <span className="font-bold">
-                    {gameState.equipmentCondition.toFixed(0)}%
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         <div className="bg-amber-50 p-4 rounded-lg mt-6">
           <h3 className="font-bold text-gray-800 mb-2">

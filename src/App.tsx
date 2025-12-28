@@ -279,7 +279,7 @@ const CoffeeShopSimulation = () => {
       if (customersPerStaff < 800) newSatisfaction += 2; // Well-staffed (additional bonus)
 
       newSatisfaction = Math.max(20, Math.min(100, newSatisfaction));
-      
+
       // Final daily customers for next month's baseline
       let newDailyCustomers = currentDailyCustomers;
 
@@ -358,7 +358,7 @@ const CoffeeShopSimulation = () => {
       console.log(`  Coffees sold: ${coffeesSold.toFixed(0)}`);
       console.log(`  Beans used: ${beansUsed.toFixed(1)}kg`);
       console.log(`  Beans remaining: ${remainingBeans.toFixed(1)}kg`);
-      
+
       // Cash Flow Analysis
       const currentCashFlow = {
         month: prev.month,
@@ -389,9 +389,9 @@ const CoffeeShopSimulation = () => {
         cashBefore: prev.cash,
         cashAfter: newCash
       };
-      
+
       setCashFlowData(currentCashFlow);
-      
+
       console.log(`CASH FLOW ANALYSIS:`);
       console.log(`  REVENUE:`);
       console.log(`    Coffee sales: $${coffeeRevenue.toFixed(2)} (${coffeesSold.toFixed(0)} × $${decisions.coffeePrice})`);
@@ -640,7 +640,7 @@ const CoffeeShopSimulation = () => {
               <DollarSign className="text-blue-600" size={24} />
               Cash Flow Analysis - Month {cashFlowData.month}
             </h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Revenue Section */}
               <div className="bg-green-50 p-4 rounded-lg">
@@ -733,13 +733,13 @@ const CoffeeShopSimulation = () => {
                   <Coffee className="text-yellow-600" size={24} />
                   📦 Inventory Management Issue
                 </h3>
-                <video 
-                  controls 
-                  autoPlay 
+                <video
+                  controls
+                  autoPlay
                   className="w-full max-w-2xl mx-auto rounded-lg shadow-lg mb-4"
                   onError={(e) => console.log('Video failed to load:', e)}
                 >
-                  <source src="public/videos/running out of beans.mp4" type="video/mp4" />
+                  <source src="videos/running out of beans.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                 <p className="text-yellow-800 mt-2">
@@ -747,20 +747,20 @@ const CoffeeShopSimulation = () => {
                 </p>
               </div>
             )}
-            
+
             {hintType === "traffic" && (
               <div className="text-center">
                 <h3 className="text-xl font-bold text-yellow-800 mb-4 flex items-center justify-center gap-2">
                   <Users className="text-yellow-600" size={24} />
                   👥 Customer Traffic Issue
                 </h3>
-                <video 
-                  controls 
-                  autoPlay 
+                <video
+                  controls
+                  autoPlay
                   className="w-full max-w-2xl mx-auto rounded-lg shadow-lg mb-4"
                   onError={(e) => console.log('Video failed to load:', e)}
                 >
-                  <source src="public/videos/Closed due to low traffic.mp4" type="video/mp4" />
+                  <source src="videos/closed due to low traffic.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                 <p className="text-yellow-800 mt-2">
@@ -768,14 +768,14 @@ const CoffeeShopSimulation = () => {
                 </p>
               </div>
             )}
-            
+
             {hintType === "text" && (
               <>
                 <h3 className="text-xl font-bold text-yellow-800 mb-4 flex items-center gap-2">
                   <HelpCircle className="text-yellow-600" size={24} />
                   💡 Business Strategy Hints
                 </h3>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-yellow-100 p-4 rounded-lg">
                     <h4 className="text-lg font-semibold text-yellow-800 mb-2">💰 Financial Management</h4>
@@ -786,7 +786,7 @@ const CoffeeShopSimulation = () => {
                       <li>• Don't overspend on marketing early on</li>
                     </ul>
                   </div>
-                  
+
                   <div className="bg-yellow-100 p-4 rounded-lg">
                     <h4 className="text-lg font-semibold text-yellow-800 mb-2">👥 Customer Satisfaction</h4>
                     <ul className="text-sm text-yellow-700 space-y-1">
@@ -796,7 +796,7 @@ const CoffeeShopSimulation = () => {
                       <li>• Ensure adequate staffing for busy periods</li>
                     </ul>
                   </div>
-                  
+
                   <div className="bg-yellow-100 p-4 rounded-lg">
                     <h4 className="text-lg font-semibold text-yellow-800 mb-2">📦 Inventory Planning</h4>
                     <ul className="text-sm text-yellow-700 space-y-1">
@@ -806,7 +806,7 @@ const CoffeeShopSimulation = () => {
                       <li>• Don't overstock - inventory costs money</li>
                     </ul>
                   </div>
-                  
+
                   <div className="bg-yellow-100 p-4 rounded-lg">
                     <h4 className="text-lg font-semibold text-yellow-800 mb-2">📈 Growth Strategy</h4>
                     <ul className="text-sm text-yellow-700 space-y-1">
@@ -817,10 +817,10 @@ const CoffeeShopSimulation = () => {
                     </ul>
                   </div>
                 </div>
-                
+
                 <div className="mt-4 p-3 bg-white rounded-lg border border-yellow-300">
                   <p className="text-sm text-yellow-800 font-medium">
-                    💡 <strong>Pro Tip:</strong> Success comes from balancing profitability with customer satisfaction. 
+                    💡 <strong>Pro Tip:</strong> Success comes from balancing profitability with customer satisfaction.
                     Focus on consistent quality and smart financial management rather than rapid expansion.
                   </p>
                 </div>
@@ -1067,7 +1067,7 @@ const CoffeeShopSimulation = () => {
               </div>
             </div>
           </div>
-          
+
           {showResults && (
             <div className="absolute inset-0 bg-amber-50 border-2 border-amber-200 rounded-lg p-6 flex flex-col justify-center items-center backdrop-blur-sm bg-opacity-95">
               <h3 className="text-2xl font-bold text-center mb-4 text-gray-800">
@@ -1081,7 +1081,7 @@ const CoffeeShopSimulation = () => {
                     ? `Great job! Your coffee shop finished with $${gameState.cash.toLocaleString()}`
                     : "Don't give up! Every successful entrepreneur learns from setbacks. You've gained valuable experience that will help you succeed next time!"}
                 </p>
-                
+
                 {gameState.cash <= 0 && (
                   <button
                     onClick={handleHintClick}
@@ -1095,7 +1095,7 @@ const CoffeeShopSimulation = () => {
                     Hint
                   </button>
                 )}
-                
+
                 <div className="grid grid-cols-2 gap-4 mt-4 text-sm">
                   <div>
                     Final Cash:{" "}

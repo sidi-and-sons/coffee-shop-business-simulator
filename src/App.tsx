@@ -8,6 +8,7 @@ import {
   Package,
   ThermometerSun,
   HelpCircle,
+  X,
 } from "lucide-react";
 
 const CoffeeShopSimulation = () => {
@@ -726,106 +727,114 @@ const CoffeeShopSimulation = () => {
         )}
 
         {showHint && showResults && gameState.cash <= 0 && (
-          <div className="bg-yellow-50 border-2 border-yellow-200 p-6 rounded-lg mb-6">
-            {hintType === "beans" && (
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-yellow-800 mb-4 flex items-center justify-center gap-2">
-                  <Coffee className="text-yellow-600" size={24} />
-                  📦 Inventory Management Issue
-                </h3>
-                <video
-                  controls
-                  autoPlay
-                  className="w-full max-w-2xl mx-auto rounded-lg shadow-lg mb-4"
-                  onError={(e) => console.log('Video failed to load:', e)}
-                >
-                  <source src="videos/running out of beans.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <p className="text-yellow-800 mt-2">
-                  Your shop closed because you ran out of coffee beans! Watch the video above for tips on inventory management.
-                </p>
-              </div>
-            )}
-
-            {hintType === "traffic" && (
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-yellow-800 mb-4 flex items-center justify-center gap-2">
-                  <Users className="text-yellow-600" size={24} />
-                  👥 Customer Traffic Issue
-                </h3>
-                <video
-                  controls
-                  autoPlay
-                  className="w-full max-w-2xl mx-auto rounded-lg shadow-lg mb-4"
-                  onError={(e) => console.log('Video failed to load:', e)}
-                >
-                  <source src="videos/closed due to low traffic.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <p className="text-yellow-800 mt-2">
-                  Your shop closed due to low customer traffic! Watch the video above for strategies to attract more customers.
-                </p>
-              </div>
-            )}
-
-            {hintType === "text" && (
-              <>
-                <h3 className="text-xl font-bold text-yellow-800 mb-4 flex items-center gap-2">
-                  <HelpCircle className="text-yellow-600" size={24} />
-                  💡 Business Strategy Hints
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-yellow-100 p-4 rounded-lg">
-                    <h4 className="text-lg font-semibold text-yellow-800 mb-2">💰 Financial Management</h4>
-                    <ul className="text-sm text-yellow-700 space-y-1">
-                      <li>• Keep at least $5,000 cash reserve for unexpected events</li>
-                      <li>• Monitor your monthly profit/loss closely</li>
-                      <li>• Balance staff costs with customer demand</li>
-                      <li>• Don't overspend on marketing early on</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-yellow-100 p-4 rounded-lg">
-                    <h4 className="text-lg font-semibold text-yellow-800 mb-2">👥 Customer Satisfaction</h4>
-                    <ul className="text-sm text-yellow-700 space-y-1">
-                      <li>• Keep equipment condition above 70%</li>
-                      <li>• Premium bean quality improves satisfaction</li>
-                      <li>• Don't price coffee too high (avoid $5.50+)</li>
-                      <li>• Ensure adequate staffing for busy periods</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-yellow-100 p-4 rounded-lg">
-                    <h4 className="text-lg font-semibold text-yellow-800 mb-2">📦 Inventory Planning</h4>
-                    <ul className="text-sm text-yellow-700 space-y-1">
-                      <li>• Order beans based on expected customers</li>
-                      <li>• Each kg of beans makes 10 cups of coffee</li>
-                      <li>• ~70% of customers buy coffee, ~30% buy pastries</li>
-                      <li>• Don't overstock - inventory costs money</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-yellow-100 p-4 rounded-lg">
-                    <h4 className="text-lg font-semibold text-yellow-800 mb-2">📈 Growth Strategy</h4>
-                    <ul className="text-sm text-yellow-700 space-y-1">
-                      <li>• Build reputation gradually for long-term success</li>
-                      <li>• Use marketing to attract new customers</li>
-                      <li>• Invest in maintenance to keep equipment running</li>
-                      <li>• Monitor daily customer trends and adapt</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-4 p-3 bg-white rounded-lg border border-yellow-300">
-                  <p className="text-sm text-yellow-800 font-medium">
-                    💡 <strong>Pro Tip:</strong> Success comes from balancing profitability with customer satisfaction.
-                    Focus on consistent quality and smart financial management rather than rapid expansion.
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4">
+            <div className="bg-yellow-50 border-2 border-yellow-200 p-6 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
+              <button
+                onClick={() => setShowHint(false)}
+                className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 z-10"
+              >
+                <X size={24} />
+              </button>
+              {hintType === "beans" && (
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-yellow-800 mb-4 flex items-center justify-center gap-2">
+                    <Coffee className="text-yellow-600" size={24} />
+                    📦 Inventory Management Issue
+                  </h3>
+                  <video
+                    controls
+                    autoPlay
+                    className="w-full max-w-2xl mx-auto rounded-lg shadow-lg mb-4"
+                    onError={(e) => console.log('Video failed to load:', e)}
+                  >
+                    <source src="videos/running out of beans.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <p className="text-yellow-800 mt-2">
+                    Your shop closed because you ran out of coffee beans! Watch the video above for tips on inventory management.
                   </p>
                 </div>
-              </>
-            )}
+              )}
+
+              {hintType === "traffic" && (
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-yellow-800 mb-4 flex items-center justify-center gap-2">
+                    <Users className="text-yellow-600" size={24} />
+                    👥 Customer Traffic Issue
+                  </h3>
+                  <video
+                    controls
+                    autoPlay
+                    className="w-full max-w-2xl mx-auto rounded-lg shadow-lg mb-4"
+                    onError={(e) => console.log('Video failed to load:', e)}
+                  >
+                    <source src="videos/closed due to low traffic.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <p className="text-yellow-800 mt-2">
+                    Your shop closed due to low customer traffic! Watch the video above for strategies to attract more customers.
+                  </p>
+                </div>
+              )}
+
+              {hintType === "text" && (
+                <>
+                  <h3 className="text-xl font-bold text-yellow-800 mb-4 flex items-center gap-2">
+                    <HelpCircle className="text-yellow-600" size={24} />
+                    💡 Business Strategy Hints
+                  </h3>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-yellow-100 p-4 rounded-lg">
+                      <h4 className="text-lg font-semibold text-yellow-800 mb-2">💰 Financial Management</h4>
+                      <ul className="text-sm text-yellow-700 space-y-1">
+                        <li>• Keep at least $5,000 cash reserve for unexpected events</li>
+                        <li>• Monitor your monthly profit/loss closely</li>
+                        <li>• Balance staff costs with customer demand</li>
+                        <li>• Don't overspend on marketing early on</li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-yellow-100 p-4 rounded-lg">
+                      <h4 className="text-lg font-semibold text-yellow-800 mb-2">👥 Customer Satisfaction</h4>
+                      <ul className="text-sm text-yellow-700 space-y-1">
+                        <li>• Keep equipment condition above 70%</li>
+                        <li>• Premium bean quality improves satisfaction</li>
+                        <li>• Don't price coffee too high (avoid $5.50+)</li>
+                        <li>• Ensure adequate staffing for busy periods</li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-yellow-100 p-4 rounded-lg">
+                      <h4 className="text-lg font-semibold text-yellow-800 mb-2">📦 Inventory Planning</h4>
+                      <ul className="text-sm text-yellow-700 space-y-1">
+                        <li>• Order beans based on expected customers</li>
+                        <li>• Each kg of beans makes 10 cups of coffee</li>
+                        <li>• ~70% of customers buy coffee, ~30% buy pastries</li>
+                        <li>• Don't overstock - inventory costs money</li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-yellow-100 p-4 rounded-lg">
+                      <h4 className="text-lg font-semibold text-yellow-800 mb-2">📈 Growth Strategy</h4>
+                      <ul className="text-sm text-yellow-700 space-y-1">
+                        <li>• Build reputation gradually for long-term success</li>
+                        <li>• Use marketing to attract new customers</li>
+                        <li>• Invest in maintenance to keep equipment running</li>
+                        <li>• Monitor daily customer trends and adapt</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 p-3 bg-white rounded-lg border border-yellow-300">
+                    <p className="text-sm text-yellow-800 font-medium">
+                      💡 <strong>Pro Tip:</strong> Success comes from balancing profitability with customer satisfaction.
+                      Focus on consistent quality and smart financial management rather than rapid expansion.
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         )}
 
